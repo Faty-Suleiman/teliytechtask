@@ -160,7 +160,7 @@ console.log(email)
         },
     })
     if(!admin) throw new Error('Unauthorized: Admin privileges/permission required')
-    console.log('checkEmail', checkEmail)
+    
   
   // Generate a unique role_id using uuidv4()
   const roleID = uuidv4();
@@ -224,13 +224,12 @@ console.log(email)
     });
   }
 };
+
 // get all roles 
 const getRoles = async (req, res) => {
-  
   const {role_id} = req.query;
   let role;
-  try {
-    
+  try { 
     if (role_id) {
       // Fetch a single role based on role_id
       role = await RoleModel.findOne({
@@ -241,7 +240,6 @@ const getRoles = async (req, res) => {
       throw new Error('Role not found');
     }
     
-  
   }else {
  // Fetch all roles if role_id is not provided
     const roles = await RoleModel.findAll();
@@ -261,12 +259,7 @@ const getRoles = async (req, res) => {
     });
    }
   
- // If role_id is provided, respond with the role data
- res.status(200).json({
-  status: true,
-  message: 'Role fetched successfully',
-  data: user
-});
+ 
 }
 
 
@@ -416,7 +409,7 @@ const disenableMFA = async (req, res) => {
     user.mfa_secret = undefined;
     await user.save();
 
-    res.status(200).json({ 
+   return res.status(200).json({ 
       status: true,
       message: 'MFA disabled successfully' });
   
